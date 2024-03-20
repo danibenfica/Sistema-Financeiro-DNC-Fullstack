@@ -10,6 +10,7 @@ import { CreateCategories } from '../../../components/Categories/CreateCategorie
 
 import { CreateMetas } from '../../../components/Metas/CreateMetas';
 
+import { CreateTransacoes } from '../../../components/Transacoes/CreateTransacoes';
 
 
 export const ExtratoPage = () => {
@@ -20,6 +21,7 @@ export const ExtratoPage = () => {
 
     const [openModalCategoria, setOpenModalCategoria] = useState(false);
     const [openModalMeta, setOpenModalMeta] = useState(false);
+    const [openModalTransacao, setOpenModalTransacao] = useState(false);
 
 
         useEffect(() => {
@@ -42,12 +44,14 @@ export const ExtratoPage = () => {
     return(
         <>
             <div style={{ display: 'flex', gap: '15px'}}>
-                <Button variant="contained" color="primary" type="submit" >Nova Transação</Button>
                 <Button variant="contained" color="primary" type="submit" onClick={() => setOpenModalCategoria(true)} >Nova Categoria</Button>
                 <Button variant="contained" color="primary" type="submit" onClick={() => setOpenModalMeta(true)} >Nova Meta</Button>
+                <Button variant="contained" color="primary" type="submit" onClick={() => setOpenModalTransacao(true)} >Nova Transacao</Button>
+
         </div>
         <CreateCategories openModal={openModalCategoria} closeModal={setOpenModalCategoria}/>
         <CreateMetas openModal={openModalMeta} closeModal={setOpenModalMeta}/>
+        <CreateTransacoes openModal={openModalTransacao} closeModal={setOpenModalTransacao}/>
 
         </>
     )
