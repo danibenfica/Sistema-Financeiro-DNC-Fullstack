@@ -12,6 +12,9 @@ import { CreateMetas } from '../../../components/Metas/CreateMetas';
 
 import { CreateTransacoes } from '../../../components/Transacoes/CreateTransacoes';
 
+import { TransacoesList } from '../../../components/Transacoes/TransacoesList';
+
+
 
 export const ExtratoPage = () => {
 
@@ -52,6 +55,7 @@ export const ExtratoPage = () => {
         <CreateCategories openModal={openModalCategoria} closeModal={setOpenModalCategoria}/>
         <CreateMetas openModal={openModalMeta} closeModal={setOpenModalMeta}/>
         <CreateTransacoes openModal={openModalTransacao} closeModal={setOpenModalTransacao}/>
+        <TransacoesList/>
 
         </>
     )
