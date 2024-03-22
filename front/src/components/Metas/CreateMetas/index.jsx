@@ -32,17 +32,17 @@ const NumericFormatCustom = (props) => {
 };
 
 export const CreateMetas = ({ openModal, closeModal }) => {
-  const [descricao, setDescricao] = useState('');
-  const [valor, setValor] = useState('');
-  const [dataMeta, setDataMeta] = useState('');
+  const [ descricao, setDescricao ] = useState('');
+  const [ valor, setValor ] = useState('');
+  const [ dataMeta, setDataMeta ] = useState('');
 
-  const [notification, setNotification] = useState({
+  const [ notification, setNotification ] = useState({
     open: false,
     message: '',
     severity: '',
   });
 
-  const [open, setOpen] = useState(false);
+  const [ open, setOpen ] = useState(false);
 
   useEffect(() => {
     if (openModal) {
@@ -66,7 +66,10 @@ export const CreateMetas = ({ openModal, closeModal }) => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      await axios.post('http://localhost:8080/metas', { descricao, valor: valor * 100, data: dataMeta }, {
+      await axios.post('http://localhost:8080/metas', { 
+        descricao, 
+        valor: valor * 100, 
+        data: dataMeta }, {
         headers: {
             'Authorization': `Bearer ${token}`
         }
@@ -100,22 +103,41 @@ export const CreateMetas = ({ openModal, closeModal }) => {
 
   return (
     <>
-      <S.Snackbar open={notification.open} autoHideDuration={3000} onClose={handleClose}>
-        <S.Alert onClose={handleClose} severity={notification.severity} variant="filled" sx={{ width: '100%' }}>
-          {notification.message}
+      <S.Snackbar 
+      open={ notification.open } 
+      autoHideDuration={ 3000 } 
+      onClose={ handleClose }>
+        <S.Alert 
+        onClose={ handleClose } 
+        severity={ notification.severity } 
+        variant="filled" 
+        sx={{ width: '100%' }}>
+          { notification.message }
         </S.Alert>
       </S.Snackbar>
 
-      <Dialog open={open} onClose={handleCloseModal}>
+      <Dialog 
+      open={ open } 
+      onClose={ handleCloseModal }>
         <DialogTitle>
-          <div style={{ textAlign: 'center', marginBottom: '32px' }}>Nova Meta</div>
+          <div style={{ 
+            textAlign: 'center', 
+            marginBottom: '32px' }}>
+              Nova Meta
+          </div>
         </DialogTitle>
         <DialogContent>
-          <S.Form onSubmit={onSubmit}>
-            <TextField name="descricao" onChange={onChangeValue} label="Descrição" variant="outlined" color="primary" fullWidth />
+          <S.Form onSubmit={ onSubmit }>
+            <TextField 
+            name="descricao" 
+            onChange={ onChangeValue } 
+            label="Descrição" 
+            variant="outlined" 
+            color="primary" 
+            fullWidth />
             <TextField
               label="Valor"
-              onChange={onChangeValue}
+              onChange={ onChangeValue }
               name="valor"
               id="formatted-numberformat-input"
               InputProps={{
@@ -124,23 +146,31 @@ export const CreateMetas = ({ openModal, closeModal }) => {
               variant="outlined"
               fullWidth
             />
-
-            
-
-            {dataMeta}
+            { dataMeta }
             <div>Data:</div>
             <input
               type="date"
               name="dataMeta"
-              value={dataMeta}
+              value={ dataMeta }
               onChange={onChangeValue}
-              style={{ padding: '10px', marginTop: '10px', borderRadius: '5px', border: '1px solid #ccc', width: '100%' }}
+              style={{ 
+                padding: '10px', 
+                marginTop: '10px', 
+                borderRadius: '5px', 
+                border: '1px solid #ccc', 
+                width: '100%' }}
             />
           </S.Form>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseModal}>Cancelar</Button>
-          <Button variant="contained" color="primary" type="submit" onClick={onSubmit}>
+          <Button onClick={ handleCloseModal }>
+            Cancelar
+            </Button>
+          <Button 
+          variant="contained" 
+          color="primary" 
+          type="submit" 
+          onClick={ onSubmit }>
             Salvar
           </Button>
         </DialogActions>

@@ -10,18 +10,18 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { useRouter } from 'next/navigation';
-import * as S from './style'
-
-
+import * as S from './style';
 
 const drawerWidth = 240;
 
-export const  Menu = ({ children }) =>{
-    const router = useRouter()
-    const doLogout = () => {
-        localStorage.removeItem('token')
-        router.push('/login')
-    }
+export const Menu = ({ children }) => {
+  const router = useRouter();
+
+  const doLogout = () => {
+    localStorage.removeItem('token');
+    router.push('/login');
+  };
+
   return (
     <Box sx={{ display: 'flex' }}>
       <Drawer
@@ -42,64 +42,92 @@ export const  Menu = ({ children }) =>{
       >
         <Toolbar />
         <Divider />
-        <S.Typography variant='h1' color='primary' style={{marginTop: '48px', marginBottom: '40px', fontSize: '27px'}}>YOURfinance.IO</S.Typography>
+        <S.Typography
+          variant='h1' 
+          color='primary' 
+          style={{marginTop: '48px',
+          marginBottom: '40px',
+          fontSize: '27px'}}
+        >
+          YOURfinance.IO
+        </S.Typography>
         <List>
-        <ListItem  disablePadding>
+          <ListItem disablePadding>
             <S.Link href="/dashboard">
               <ListItemButton>
                 <ListItemIcon>
-                <S.Typography variant='h3' color='primary' style={{ fontSize: '27px'}}>░░</S.Typography>
+                  <S.Typography 
+                  variant='h3' 
+                  color='primary' 
+                  style={{ fontSize: '27px'}}>
+                    ░░
+                  </S.Typography>
                 </ListItemIcon>
                 <ListItemText primary="Meu Painel" />
               </ListItemButton>
-              </S.Link>
-            </ListItem>
+            </S.Link>
+          </ListItem>
         </List>
         <List>
-        <ListItem  disablePadding>
+          <ListItem disablePadding>
             <S.Link href="/categoria">
               <ListItemButton>
                 <ListItemIcon>
-                <S.Typography variant='h3' color='primary' style={{ fontSize: '27px'}}>👝</S.Typography>
+                  <S.Typography 
+                  variant='h3' 
+                  color='primary' 
+                  style={{ fontSize: '27px'}}>
+                    👝
+                  </S.Typography>
                 </ListItemIcon>
                 <ListItemText primary="Categoria" />
               </ListItemButton>
             </S.Link>
-            </ListItem>
+          </ListItem>
         </List>
         <List>
-        <ListItem  disablePadding>
-                <S.Link href="/extrato">
+          <ListItem disablePadding>
+            <S.Link href="/extrato">
               <ListItemButton>
                 <ListItemIcon>
-                <S.Typography variant='h3' color='primary' style={{ fontSize: '27px'}}>↹</S.Typography>
+                  <S.Typography 
+                  variant='h3' 
+                  color='primary' 
+                  style={{ fontSize: '27px'}}>
+                    ↹
+                  </S.Typography>
                 </ListItemIcon>
                 <ListItemText primary="Extrato" />
               </ListItemButton>
-              </S.Link>
-            </ListItem>
+            </S.Link>
+          </ListItem>
         </List>
         <List>
-        <ListItem  disablePadding>
-              <ListItemButton onClick={doLogout}>
-                <ListItemIcon>
-                <S.Typography variant='h3' color='primary' style={{ fontSize: '27px'}}>➨</S.Typography>
-                </ListItemIcon>
-                <ListItemText primary="Sair" />
-              </ListItemButton>
-            </ListItem>
+          <ListItem disablePadding>
+            <ListItemButton onClick={ doLogout }>
+              <ListItemIcon>
+                <S.Typography 
+                variant='h3' 
+                color='primary' 
+                style={{ fontSize: '27px'}}>
+                  ➨
+                </S.Typography>
+              </ListItemIcon>
+              <ListItemText primary="Sair" />
+            </ListItemButton>
+          </ListItem>
         </List>
       </Drawer> 
       <Box
         component="main"
-        sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
+        sx={{ flexGrow: 1, 
+          bgcolor: 'background.default', 
+          p: 3 }}
       >
-        {children}
+        { children }
       </Box>
     </Box>
   );
 }
 
-
-
-export default Menu
+export default Menu;
