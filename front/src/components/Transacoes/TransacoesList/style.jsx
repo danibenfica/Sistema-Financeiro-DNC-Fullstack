@@ -6,6 +6,11 @@ import TableContainerMUI from '@mui/material/TableContainer';
 import TableHeadMUI from '@mui/material/TableHead';
 import TableRowMUI from '@mui/material/TableRow';
 import PaperMUI from '@mui/material/Paper';
+import FormControlMUI  from '@mui/material/FormControl';
+import SelectMUI from '@mui/material/Select';
+import InputLabelMUI from '@mui/material/InputLabel';
+import MenuItemMUI from '@mui/material/MenuItem';
+
 
 export const Table = styled(TableMUI)``
 
@@ -20,3 +25,15 @@ export const TableHead = styled(TableHeadMUI)``
 export const TableRow = styled(TableRowMUI)``
 
 export const Paper = styled(PaperMUI)``
+
+export const FormControl = styled(FormControlMUI)`
+    margin-bottom: 30px
+`
+
+export const Select = styled(SelectMUI)``
+
+export const InputLabel = styled(InputLabelMUI)``
+
+export const MenuItem = styled(MenuItemMUI)``
+
+

@@ -113,7 +113,6 @@ export const CreateMetas = ({ openModal, closeModal }) => {
         <DialogContent>
           <S.Form onSubmit={onSubmit}>
             <TextField name="descricao" onChange={onChangeValue} label="Descrição" variant="outlined" color="primary" fullWidth />
-            {valor * 100}
             <TextField
               label="Valor"
               onChange={onChangeValue}

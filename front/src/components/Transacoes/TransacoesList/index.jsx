@@ -5,6 +5,14 @@ import { compareAsc } from 'date-fns';
 
 export const TransacoesList = () => {
     const [transacoes, setTransacoes] = useState([]);
+    const [transacoesTable, setTransacoesTable] = useState([]);
+    const [tipo, setTipo] = useState('Todas');
+    const [anos, setAnos] = useState(['todos']);
+    const [ano, setAno] = useState('todos');
+
+
+
+
     const [notification, setNotification] = useState({
         open: false,
         message: '',
@@ -20,7 +28,20 @@ export const TransacoesList = () => {
                        Authorization: `Bearer ${token}`
                    }
                 });
+
+                const anos = response.data.data
+                .map((transacao) => new Date(transacao.data).getFullYear())
+                .filter((ano, index, anos) => anos.indexOf(ano) === index)
+                .sort((a, b) => a - b);
+                setAnos([
+                    'todos',
+                    ...anos
+                ])
+
                 setTransacoes(response.data.data);
+                setTransacoesTable(response.data.data);
+                
+
             } catch (error) {
                 setNotification({
                     open: true, 
@@ -32,7 +53,71 @@ export const TransacoesList = () => {
         getTransacoes();
     }, []); 
 
+    useEffect(() => {
+
+        if(ano === 'todos') {
+            if(tipo === 'Todas'){
+                setTransacoesTable(transacoes);
+            }
+    
+            if(tipo === 'Receitas'){
+                const receitas = transacoes.filter(transacao => transacao.tipo === 'Receita')
+                setTransacoesTable(receitas);
+            }
+    
+            if(tipo === 'Despesas'){
+                const despesas = transacoes.filter(transacao => transacao.tipo === 'Despesa')
+                setTransacoesTable(despesas);
+            }
+        }
+        else{
+            if(tipo === 'Todas'){
+                const todas = transacoes.filter(transacao => new Date(transacao.data).getFullYear() === Number(ano))
+                setTransacoesTable(todas);
+            }
+    
+            if(tipo === 'Receitas'){
+                const receitas = transacoes.filter(transacao => transacao.tipo === 'Receita' && new Date(transacao.data).getFullYear() === Number(ano))
+                setTransacoesTable(receitas);
+            }
+    
+            if(tipo === 'Despesas'){
+                const despesas = transacoes.filter(transacao => transacao.tipo === 'Despesa' && new Date(transacao.data).getFullYear() === Number(ano))
+                setTransacoesTable(despesas);
+            }
+        }
+
+
+    }, [tipo, transacoes, ano])
+
+    const onChangeValue = (e) => {
+        const { name, value } = e.target
+        if(name === 'ano') setAno(value)
+    }
+
     return (
+       <> 
+
+
+       <div style={{ display: 'flex', gap: '15px', margin: '30px 0 30px 0'}}>
+            <div onClick={() => setTipo('Todas')}>Todas Transações</div>
+            <div onClick={() => setTipo('Receitas')}>Receitas</div>
+            <div onClick={() => setTipo('Despesas')}>Despesas</div>
+       </div>
+       <S.FormControl fullWidth>
+                    <S.InputLabel id="tipo">Anos</S.InputLabel>
+                    <S.Select
+                        labelId="anos"
+                        id="ano_select"
+                        name='ano'
+                        value={ ano }
+                        label="Anos"
+                        onChange={ onChangeValue }
+                    >
+                       {anos.map(anoDisponivel => <S.MenuItem key={anoDisponivel} value={anoDisponivel}>{anoDisponivel}</S.MenuItem>)} 
+                          
+                    </S.Select>
+            </S.FormControl>
         <S.TableContainer component={S.Paper} style={{marginTop: '20px'}}>
             <S.Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <S.TableHead>
@@ -45,7 +130,7 @@ export const TransacoesList = () => {
                     </S.TableRow>
                 </S.TableHead>
                 <S.TableBody>
-                    {transacoes.map((transacao) => (
+                    {transacoesTable.map((transacao) => (
                         <S.TableRow
                             key={transacao.descricao}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -60,12 +145,13 @@ export const TransacoesList = () => {
                                 ).format(new Date(transacao.data)) : ''}
                             </S.TableCell>
                             <S.TableCell align="right">{compareAsc(new Date(), new Date(transacao.data)) === 1 ? 'Realizada' : 'Planejada'}</S.TableCell>
-                            <S.TableCell align="right">{transacao.valor}</S.TableCell>
+                            <S.TableCell align="right">R$  {transacao.valor / 100 }</S.TableCell>
                         </S.TableRow>
                     ))}
                 </S.TableBody>
-            </S.Table>
+            </S.Table> 
         </S.TableContainer>
+      </>  
     );
 };
 
