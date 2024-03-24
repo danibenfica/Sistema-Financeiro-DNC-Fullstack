@@ -76,7 +76,6 @@ export const Panel = () => {
 
     return (
         <div>
-            { somatorio.saldo }
             <Grid container spacing={8}>
                 <Grid item xs={6}>
                     <Card label="Saldo Atual" valor={ `R$ ${ somatorio.saldo / 100 }`}>
