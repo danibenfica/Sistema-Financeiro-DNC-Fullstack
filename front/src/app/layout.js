@@ -34,9 +34,9 @@ const theme = createTheme({
 
 export default function RootLayout({ children }) {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={ theme }>
       <html lang="en">
-        <body className={inter.className}>{children}</body>
+        <body className={ inter.className }>{ children }</body>
       </html>
     </ThemeProvider>
   );

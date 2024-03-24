@@ -9,9 +9,6 @@ import { CreateTransacoes } from '../../../components/Transacoes/CreateTransacoe
 import { TransacoesList } from '../../../components/Transacoes/TransacoesList';
 
 export const ExtratoPage = () => {
-    const [user, setUser] = useState({
-        id: null
-    });
 
     const [openModalCategoria, setOpenModalCategoria] = useState(false);
     const [openModalMeta, setOpenModalMeta] = useState(false);
@@ -27,9 +24,7 @@ export const ExtratoPage = () => {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
-        }).then(response => {
-            setUser(response.data.data);
-        }).catch(error => {
+        }).then(_ => {}).catch(_ => {
             window.location.href = '/login';
         });
     }, []);
@@ -37,13 +32,36 @@ export const ExtratoPage = () => {
     return (
         <>
             <div style={{ display: 'flex', gap: '15px' }}>
-                <Button variant="contained" color="primary" type="submit" onClick={() => setOpenModalCategoria(true)}>Nova Categoria</Button>
-                <Button variant="contained" color="primary" type="submit" onClick={() => setOpenModalMeta(true)}>Nova Meta</Button>
-                <Button variant="contained" color="primary" type="submit" onClick={() => setOpenModalTransacao(true)}>Nova Transacao</Button>
+                <Button 
+                variant="contained" 
+                color="primary" 
+                type="submit" 
+                onClick={ 
+                    () => setOpenModalCategoria(true) }>
+                        Nova Categoria
+                </Button>
+
+                <Button 
+                variant="contained" 
+                color="primary" 
+                type="submit" 
+                onClick={ 
+                    () => setOpenModalMeta(true) }>
+                        Nova Meta
+                </Button>
+
+                <Button 
+                variant="contained" 
+                color="primary" 
+                type="submit" 
+                onClick={ 
+                    () => setOpenModalTransacao(true) }>
+                        Nova Transacao
+                </Button>
             </div>
-            <CreateCategories openModal={openModalCategoria} closeModal={setOpenModalCategoria} />
-            <CreateMetas openModal={openModalMeta} closeModal={setOpenModalMeta} />
-            <CreateTransacoes openModal={openModalTransacao} closeModal={setOpenModalTransacao} />
+            <CreateCategories openModal={ openModalCategoria } closeModal={ setOpenModalCategoria } />
+            <CreateMetas openModal={ openModalMeta } closeModal={ setOpenModalMeta } />
+            <CreateTransacoes openModal={ openModalTransacao } closeModal={ setOpenModalTransacao } />
             <TransacoesList />
         </>
     );

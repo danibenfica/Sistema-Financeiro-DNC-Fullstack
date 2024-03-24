@@ -118,7 +118,6 @@ export const CreateTransacoes = ({ openModal, closeModal }) => {
       handleCloseModal()
 
     } catch (error) {
-      console.log('error');
       setNotification({
         open: true,
         message: error.response.data.error,
